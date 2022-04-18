@@ -11,6 +11,7 @@ use App\Http\Resources\Api\UserResource;
 use App\Http\Requests\Api\Auth\LoginRequest;
 use App\Http\Requests\Api\Auth\ConfirmCodeRequest;
 use App\Http\Requests\Api\Auth\ResetRequest;
+use App\Http\Requests\Api\Auth\PasswordChangeRequest;
 use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
@@ -93,7 +94,7 @@ class AuthController extends Controller
     }
 
     public function changePassword(PasswordChangeRequest $request){
-        try {
+        // try {
             $user = User::where('email',$request->email)->first();
             if($user->reset_password == $request->code){
                 $user->password=$request->password;
@@ -103,10 +104,9 @@ class AuthController extends Controller
                 return $this->responseJsonFailed(422, 'reset code is incorect');
             }
             
-            
-        } catch (Throwable $e) {
-            return $this->responseJsonFailed();
-        }
+        // } catch (Throwable $e) {
+        //     return $this->responseJsonFailed();
+        // }
     }
 
     public function changeCode(PasswordChangeRequest $request){

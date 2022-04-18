@@ -10,6 +10,7 @@ use Illuminate\Validation\ValidationException;
 
 class PasswordChangeRequest extends FormRequest
 {
+    use ApiTraits;
     /**
      * Determine if the user is authorized to make this request.
      *
