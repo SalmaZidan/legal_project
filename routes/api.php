@@ -2,6 +2,9 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\AgentController;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,7 +16,19 @@ use Illuminate\Support\Facades\Route;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+Route::post('/login',[AuthController::class, 'login']);
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+Route::middleware(["auth:api"])->group(function () {
+    // Auth
+    Route::post('confirm-code',[AuthController::class, 'confirmCode']);
+    Route::post('reset-password-email',[AuthController::class, 'resetPassword']);
+    Route::post('reset-code-email',[AuthController::class, 'resetCode']);
+    Route::post('change-code',[AuthController::class, 'changeCode']);
+    Route::post('change-password',[AuthController::class, 'changePassword']);
+
+    // Agent
+    Route::post('agent-add',[AgentController::class, 'add']);
+    Route::get('agent-list',[AgentController::class, 'list']);
+
+
 });

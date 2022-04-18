@@ -19,6 +19,8 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->string('phone')->unique();
             $table->string('code')->nullable();
+            $table->string('reset_code')->nullable();
+            $table->string('reset_password')->nullable();
             $table->boolean('code_status')->default(0);
             $table->integer('type');
             $table->boolean('gender')->default(0);

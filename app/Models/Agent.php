@@ -8,4 +8,23 @@ use Illuminate\Database\Eloquent\Model;
 class Agent extends Model
 {
     use HasFactory;
+    protected $guarded = [];
+
+    public function phones()
+    {
+        return $this->hasMany(AgentPhone::class);
+    }
+
+
+    public function addresses()
+    {
+        return $this->hasMany(AgentAddress::class, 'agent_id');
+    }
+
+    public function documents()
+    {
+        return $this->hasMany(AgentDocument::class);
+    }
+
+    
 }
