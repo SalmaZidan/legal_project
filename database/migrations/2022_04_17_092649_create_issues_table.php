@@ -17,7 +17,8 @@ return new class extends Migration
             $table->id();
             $table->string('number');
             $table->string('year');
-            $table->string('governorate');
+            $table->tinyInteger('day');
+            $table->unsignedBigInteger('governorate_id')->nullable();
             $table->unsignedBigInteger('court_id')->nullable();
             $table->string('authorization_number');
             $table->string('documentation_number');
@@ -25,7 +26,6 @@ return new class extends Migration
             $table->integer('agent_class');
             $table->unsignedBigInteger('issue_type_id')->nullable();
             $table->string('cost');
-            $table->unsignedBigInteger('agent_id')->nullable();
             $table->timestamps();
         });
     }

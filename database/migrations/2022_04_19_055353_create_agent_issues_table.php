@@ -13,14 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('courts', function (Blueprint $table) {
+        Schema::create('agent_issue', function (Blueprint $table) {
             $table->id();
-            $table->string('name_ar');
-            $table->string('name_en');
-            $table->text('address_ar');
-            $table->text('address_en');
-            $table->unsignedBigInteger('governorate_id')->nullable();
-            $table->text('link');
+            $table->unsignedBigInteger('agent_id')->nullable();
+            $table->unsignedBigInteger('issue_id')->nullable();
             $table->timestamps();
         });
     }
@@ -32,6 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('courts');
+        Schema::dropIfExists('agent_issues');
     }
 };

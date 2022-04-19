@@ -8,9 +8,10 @@ use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Validation\ValidationException;
 
-class PasswordChangeRequest extends FormRequest
+class CheckCodeRequest extends FormRequest
 {
     use ApiTraits;
+
     /**
      * Determine if the user is authorized to make this request.
      *
@@ -29,8 +30,9 @@ class PasswordChangeRequest extends FormRequest
     public function rules()
     {
         return [
+            "code" => "required",
             "email" => "required|exists:users,email",
-            "password" => "required",
+            "type" => "required|in:0,1",
         ];
     }
 

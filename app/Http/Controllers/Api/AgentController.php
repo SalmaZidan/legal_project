@@ -39,7 +39,16 @@ class AgentController extends Controller
     public function list(){
         try {
             $agents = Agent::paginate(15);
-            return $this->responseJsonPaginate(200, "Agent Added Successfully", AgentResource::collection($agents) , $this->getPaginates(AgentResource::collection($agents)));
+            return $this->responseJsonPaginate(200, "Successfully", AgentResource::collection($agents) , $this->getPaginates(AgentResource::collection($agents)));
+        } catch (Throwable $e) {
+            return $this->responseJsonFailed();
+        }
+    }
+
+    public function info($id){
+        try {
+            $agents = Agent::find($id);
+            return $this->responseJsonPaginate(200, "Successfully", AgentResource::collection($agents) , $this->getPaginates(AgentResource::collection($agents)));
         } catch (Throwable $e) {
             return $this->responseJsonFailed();
         }

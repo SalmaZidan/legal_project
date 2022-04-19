@@ -15,7 +15,6 @@ class Agent extends Model
         return $this->hasMany(AgentPhone::class);
     }
 
-
     public function addresses()
     {
         return $this->hasMany(AgentAddress::class, 'agent_id');
@@ -24,6 +23,11 @@ class Agent extends Model
     public function documents()
     {
         return $this->hasMany(AgentDocument::class);
+    }
+
+    public function issues()
+    {
+        return $this->belongsToMany(Issue::class);
     }
 
     

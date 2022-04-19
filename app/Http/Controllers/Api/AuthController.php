@@ -12,6 +12,7 @@ use App\Http\Requests\Api\Auth\LoginRequest;
 use App\Http\Requests\Api\Auth\ConfirmCodeRequest;
 use App\Http\Requests\Api\Auth\ResetRequest;
 use App\Http\Requests\Api\Auth\PasswordChangeRequest;
+use App\Http\Requests\Api\Auth\CheckCodeRequest;
 use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
@@ -93,34 +94,48 @@ class AuthController extends Controller
         }
     }
 
-    public function changePassword(PasswordChangeRequest $request){
-        // try {
-            $user = User::where('email',$request->email)->first();
+    public function checkCode(CheckCodeRequest $request){
+        $user = User::where('email',$request->email)->first();
+        if($request->type == 0){  //password
             if($user->reset_password == $request->code){
-                $user->password=$request->password;
-                $user->save();
                 return $this->responseJsonWithoutData();
             }else{
                 return $this->responseJsonFailed(422, 'reset code is incorect');
             }
+        }elseif($request->type == 1){  //Code
+            if($user->reset_code == $request->code){
+                return $this->responseJsonWithoutData();
+            }else{
+                return $this->responseJsonFailed(422, 'reset code is incorect');
+            }
+        }else{
+            return $this->responseJsonFailed(422, 'invalid typet');
+        }
             
-        // } catch (Throwable $e) {
-        //     return $this->responseJsonFailed();
-        // }
+    }
+
+    public function changePassword(PasswordChangeRequest $request){
+        try {
+            $user = User::where('email',$request->email)->first();
+            $user->password=$request->password;
+            $user->reset_password=null;
+            $user->save();
+            return $this->responseJsonWithoutData();
+        } catch (Throwable $e) {
+            return $this->responseJsonFailed();
+        }
     }
 
     public function changeCode(PasswordChangeRequest $request){
         try {
             $user = User::where('email',$request->email)->first();
-            if($user->reset_code == $request->code){
-                $user->code=$request->password;
-                $user->save();
-                return $this->responseJsonWithoutData();
-            }else{
-                return $this->responseJsonFailed(422, 'reset code is incorect');
-            }
+            $user->code=$request->password;
+            $user->reset_code=null;
+            $user->save();
+            return $this->responseJsonWithoutData();
         } catch (Throwable $e) {
             return $this->responseJsonFailed();
         }
     }
+
 }
