@@ -12,6 +12,11 @@ class Issue extends Model
 
     public function agents()
     {
-        return $this->belongsToMany(Agent::class);
+        return $this->belongsToMany(Agent::class)->withTimestamps();
+    }
+
+    public function users()
+    {
+        return $this->belongsToMany(User::class)->withTimestamps();
     }
 }

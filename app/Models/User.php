@@ -21,6 +21,9 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'phone',
+        'image',
+        'type',
     ];
 
     /**
@@ -46,5 +49,10 @@ class User extends Authenticatable
     public function setPasswordAttribute($value)
     {
         $this->attributes["password"] = bcrypt($value);
+    }
+    
+    public function issues()
+    {
+        return $this->belongsToMany(Issue::class)->withTimestamps();
     }
 }

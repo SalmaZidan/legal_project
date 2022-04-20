@@ -16,6 +16,13 @@ class IssueController extends Controller
 
     public function add(AddRequest $request){
         try {
+            if($request->header('lang')){
+                if($request->header('lang') == 'ar'){
+                    $lang = 'ar';
+                }else{$lang = 'en';}
+            }else{
+                $lang = 'ar';
+            }
             $issue = Issue::create([
                 'number' => $request->number,
                 'year' => $request->year,
@@ -29,7 +36,8 @@ class IssueController extends Controller
                 'issue_type_id' =>$request->case_type_id ,
                 'cost' =>$request->cost ,
             ]);
-            return $this->responseJson(200, "Case Added Successfully", new IssueResource($issue,'en'));
+            $issue->agents()->attach($request->agents);
+            return $this->responseJson(200, "Case Added Successfully", new IssueResource($issue, $lang));
         } catch (Throwable $e) {
             return $this->responseJsonFailed();
         }

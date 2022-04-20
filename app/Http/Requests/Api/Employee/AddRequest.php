@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\Api\Issue;
+namespace App\Http\Requests\Api\Employee;
 
 use Illuminate\Foundation\Http\FormRequest;
 use App\Traits\ApiTraits;
@@ -11,7 +11,6 @@ use Illuminate\Validation\ValidationException;
 class AddRequest extends FormRequest
 {
     use ApiTraits;
-
     /**
      * Determine if the user is authorized to make this request.
      *
@@ -30,19 +29,11 @@ class AddRequest extends FormRequest
     public function rules()
     {
         return [
-            "number" => "required",
-            "year" => "required",
-            "day" => "required|in:0,1,2,3,4,5,6",
-            "governorate_id" => "required|exists:governorates,id",
-            "court_id" => "required|exists:courts,id",
-            "authorization_number" => "required",
-            "confirmation_number" => "required",
-            "date" => "required|date",
-            "agent_class" => "required|in:0,1",
-            "case_type_id" => "required|exists:issue_types,id",
-            "cost" => "required",
-            "agents" => "array|required|min:1",
-
+            "name" => "required",
+            "phone" => "required|unique:users,phone|min:11",
+            "email" => "required|email|unique:users,email",
+            "password" => "required",
+            "image" => "required|file|mimes:png,jpg,svg,gif",
         ];
     }
 

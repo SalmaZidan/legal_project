@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\AgentController;
 use App\Http\Controllers\Api\IssueController;
+use App\Http\Controllers\Api\EmployeeController;
 use Illuminate\Support\Facades\Auth;
 
 /*
@@ -32,12 +33,16 @@ Route::middleware(["auth:api"])->group(function () {
     // Agent
     Route::post('agent-add',[AgentController::class, 'add']);
     Route::get('agent-list',[AgentController::class, 'list']);
-    // Route::get('agent-info/{id}',[AgentController::class, 'info']); 
+    Route::get('agent-info/{id}',[AgentController::class, 'info']); 
 
 
     // Issue
     Route::post('case-add',[IssueController::class, 'add']);
 
+    // Employee
+    Route::post('employee-add',[EmployeeController::class, 'add']);
+    Route::get('employee-list',[EmployeeController::class, 'list']);
+    Route::post('employee-add-case',[EmployeeController::class, 'addCase']);
 
 
 });

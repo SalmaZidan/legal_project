@@ -3,6 +3,9 @@
 namespace App\Http\Resources\Api;
 
 use Illuminate\Http\Resources\Json\JsonResource;
+use App\Models\Governorate;
+use App\Models\Court;
+use App\Models\IssueType;
 
 class IssueResource extends JsonResource
 {
@@ -11,6 +14,11 @@ class IssueResource extends JsonResource
         parent::__construct($resource);
         $this->resource = $resource;
         $this->language = $language;
+        if($language){
+            $this->language = $language;
+        }else{
+            $this->language = $resource;
+        }
     }
 
     /**
@@ -21,19 +29,22 @@ class IssueResource extends JsonResource
      */
     public function toArray($request)
     {
+        $goverorate = Governorate::find($this->governorate_id);
+        $court = Court::find($this->court_id);
+        $issue_type = IssueType::find($this->issue_type_id);
         
         return [
             "id" => $this->id,
             "nunmber" => $this->number,
             "year" => $this->year,
             "day" => $this->day,
-            "governorate_id" => $this->governorate_id,
-            "court_id" => $this->court_id,
+            "governorate" => isset($goverorate)? new GovernorateResource($goverorate, $this->language): '',
+            "court" => isset($court)?  new CourtResource($court, $this->language): '',
             "authorization_number" => $this->authorization_number,
             "confirmation_number" => $this->documentation_number,
             "date" => $this->date,
             "agent_class" => $this->agent_class,
-            "case_type_id" => $this->issue_type_id,
+            "case_type" => isset($issue_type)? new IssueTypeResource($issue_type, $this->language): '' ,
             "cost" => $this->cost,
             "created_at" => $this->created_at,
             "updated_at" => $this->updated_at,

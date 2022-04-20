@@ -3,8 +3,8 @@
 namespace App\Http\Resources\Api;
 
 use Illuminate\Http\Resources\Json\JsonResource;
-
-class UserResource extends JsonResource
+use App\Models\Agent;
+class AgentListResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -14,16 +14,14 @@ class UserResource extends JsonResource
      */
     public function toArray($request)
     {
+        $agent = Agent::find($this->id);
+
         return [
             "id" => $this->id,
             "name" => $this->name,
-            "phone" => $this->phone,
-            "email" => $this->email,
-            "gender" => ($this->gender == 0) ? "male" : "female",
-            "type" => $this->type,
-            "code_status" => ($this->code_status) ? "1" : "0",
-            "image"=>isset($this->image) ? env('APP_URL').'/public/'.$this->image : '',
-            "token" => isset($this->api_token) ? $this->api_token : '',
+            "phones" =>  AgentPhoneResource::collection($agent->phones),
+            "addresses" => AgentAddressResource::collection($agent->addresses),
+            "documents" => AgentDocumentResource::collection($agent->documents),
             "created_at" => $this->created_at,
             "updated_at" => $this->updated_at,
         ];
