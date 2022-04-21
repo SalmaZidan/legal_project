@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::create('issue_accounts', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('issue_id')->nullable();
             $table->unsignedBigInteger('issue_account_type_id')->nullable();
             $table->float('price');
             $table->text('note');

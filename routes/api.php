@@ -6,6 +6,11 @@ use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\AgentController;
 use App\Http\Controllers\Api\IssueController;
 use App\Http\Controllers\Api\EmployeeController;
+use App\Http\Controllers\Api\CourtController;
+use App\Http\Controllers\Api\GovernorateController;
+use App\Http\Controllers\Api\UserController;
+use App\Http\Controllers\Api\OfficeAccountsController;
+use App\Http\Controllers\Api\IssueAccountsController;
 use Illuminate\Support\Facades\Auth;
 
 /*
@@ -43,6 +48,30 @@ Route::middleware(["auth:api"])->group(function () {
     Route::post('employee-add',[EmployeeController::class, 'add']);
     Route::get('employee-list',[EmployeeController::class, 'list']);
     Route::post('employee-add-case',[EmployeeController::class, 'addCase']);
+    Route::post('employee-delete-case',[EmployeeController::class, 'deleteCase']);
+    Route::get('employee-profile/{id}',[EmployeeController::class, 'profile']);
 
+    // Court
+    Route::get('court-list',[CourtController::class, 'list']);
+    Route::get('court-filter/{id}',[CourtController::class, 'filterByGovernorate']);
+
+
+    // Governorate
+    Route::get('governorate-list',[GovernorateController::class, 'list']);
+
+
+    // User
+    Route::post('user-edit-profile',[UserController::class, 'editProfile']);
+
+
+    // Office Accounts 
+    Route::post('office-accounts-add',[OfficeAccountsController::class, 'add']);
+    Route::get('office-accounts-list',[OfficeAccountsController::class, 'list']);
+
+    // Issue Accounts 
+    Route::post('case-accounts-add',[IssueAccountsController::class, 'add']);
+    Route::get('cases-accounts-list',[IssueAccountsController::class, 'list']);
+    Route::get('case-accounts-list/{id}',[IssueAccountsController::class, 'singleIssueList']);
+    Route::get('agent-case-accounts-list/{id}',[IssueAccountsController::class, 'agentList']);
 
 });

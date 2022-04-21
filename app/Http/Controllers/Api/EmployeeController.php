@@ -10,6 +10,7 @@ use App\Models\User;
 use App\Traits\ApiTraits;
 use App\Traits\HelperTrait;
 use App\Http\Resources\Api\UserResource;
+use App\Http\Resources\Api\EmployeeProfileResource;
 
 class EmployeeController extends Controller
 {
@@ -45,9 +46,49 @@ class EmployeeController extends Controller
 
     public function addCase(AddCaseRequest $request){
         try {
+            if($request->header('lang')){
+                if($request->header('lang') == 'ar'){
+                    $lang = 'ar';
+                }else{$lang = 'en';}
+            }else{
+                $lang = 'ar';
+            }
             $user = User::find($request->employee_id);
             $user->issues()->syncWithoutDetaching($request->case_id);
-            return $this->responseJson(200, "Successfully", new UserResource($user));
+            return $this->responseJson(200, "Successfully", new EmployeeProfileResource($user, $lang));
+        } catch (Throwable $e) {
+            return $this->responseJsonFailed();
+        }
+    }
+    
+    public function deleteCase(AddCaseRequest $request){
+        try {
+            if($request->header('lang')){
+                if($request->header('lang') == 'ar'){
+                    $lang = 'ar';
+                }else{$lang = 'en';}
+            }else{
+                $lang = 'ar';
+            }
+            $user = User::find($request->employee_id);
+            $user->issues()->detach($request->case_id);
+            return $this->responseJson(200, "Successfully", new EmployeeProfileResource($user, $lang));
+        } catch (Throwable $e) {
+            return $this->responseJsonFailed();
+        }
+    }
+
+    public function profile(Request $request, $id){
+        try {
+            if($request->header('lang')){
+                if($request->header('lang') == 'ar'){
+                    $lang = 'ar';
+                }else{$lang = 'en';}
+            }else{
+                $lang = 'ar';
+            }
+            $user = User::find($id);
+            return $this->responseJson(200, "Successfully", new EmployeeProfileResource($user, $lang));
         } catch (Throwable $e) {
             return $this->responseJsonFailed();
         }

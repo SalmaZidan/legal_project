@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\Api\Issue;
+namespace App\Http\Requests\Api\User;
 
 use Illuminate\Foundation\Http\FormRequest;
 use App\Traits\ApiTraits;
@@ -8,7 +8,7 @@ use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Validation\ValidationException;
 
-class AddRequest extends FormRequest
+class EditProfileRequest extends FormRequest
 {
     use ApiTraits;
 
@@ -30,18 +30,13 @@ class AddRequest extends FormRequest
     public function rules()
     {
         return [
-            "number" => "required",
-            "year" => "required",
-            "day" => "required|in:0,1,2,3,4,5,6",
-            "governorate_id" => "required|exists:governorates,id",
-            "court_id" => "required|exists:courts,id",
-            "authorization_number" => "required",
-            "confirmation_number" => "required",
-            "date" => "required|date",
-            "agent_class" => "required|in:0,1",
-            "case_type_id" => "required|exists:issue_types,id",
-            "cost" => "required",
-            "agents" => "array|required|min:1",
+            "name" => "nullable",
+            "phone" => "nullable|unique:users,phone|min:11",
+            "email" => "nullable|email|unique:users,email",
+            "password" => "nullable",
+            "code_status" => "nullable|in:0,1",
+            "code" => "nullable",
+            "image" => "nullable|file|mimes:png,jpg,svg,gif",
         ];
     }
 

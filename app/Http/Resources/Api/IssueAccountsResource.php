@@ -3,9 +3,9 @@
 namespace App\Http\Resources\Api;
 
 use Illuminate\Http\Resources\Json\JsonResource;
-use App\Models\Governorate;
+use App\Models\IssueAccountType;
 
-class CourtResource extends JsonResource
+class IssueAccountsResource extends JsonResource
 {
     public function __construct($resource, $language)
     {
@@ -22,19 +22,13 @@ class CourtResource extends JsonResource
      */
     public function toArray($request)
     {
-        $name = "name_".$this->language;
-        $address = "address_".$this->language;
-        $goverorate = Governorate::find($this->governorate_id);
+        $issueType = IssueAccountType::find($this->issue_account_type_id);
 
-        
         return [
             "id" => $this->id,
-            "name" => $this->$name,
-            "address" => $this->$address,
-            "link" => $this->link,
-            "governorate" => new GovernorateResource($goverorate, $this->language),
-
+            "type" => new IssueAccountTypeResource($issueType, $this->language),
+            "price" => $this->price,
+            "note" => $this->note,
         ];
     }
-
 }

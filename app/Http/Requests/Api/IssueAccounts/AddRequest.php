@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\Api\Issue;
+namespace App\Http\Requests\Api\IssueAccounts;
 
 use Illuminate\Foundation\Http\FormRequest;
 use App\Traits\ApiTraits;
@@ -30,18 +30,10 @@ class AddRequest extends FormRequest
     public function rules()
     {
         return [
-            "number" => "required",
-            "year" => "required",
-            "day" => "required|in:0,1,2,3,4,5,6",
-            "governorate_id" => "required|exists:governorates,id",
-            "court_id" => "required|exists:courts,id",
-            "authorization_number" => "required",
-            "confirmation_number" => "required",
-            "date" => "required|date",
-            "agent_class" => "required|in:0,1",
-            "case_type_id" => "required|exists:issue_types,id",
-            "cost" => "required",
-            "agents" => "array|required|min:1",
+            "case_id" => "required|exists:issues,id",
+            "case_account_type_id" => "required|exists:issue_account_types,id",
+            "price" => "required",
+            "note" => "required",
         ];
     }
 
