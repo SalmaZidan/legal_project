@@ -11,6 +11,8 @@ use App\Http\Controllers\Api\GovernorateController;
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\OfficeAccountsController;
 use App\Http\Controllers\Api\IssueAccountsController;
+use App\Http\Controllers\Api\SessionController;
+use App\Http\Controllers\Api\EnemyController;
 use Illuminate\Support\Facades\Auth;
 
 /*
@@ -34,7 +36,6 @@ Route::middleware(["auth:api"])->group(function () {
     // Auth
     Route::post('confirm-code',[AuthController::class, 'confirmCode']);
 
-
     // Agent
     Route::post('agent-add',[AgentController::class, 'add']);
     Route::get('agent-list',[AgentController::class, 'list']);
@@ -43,6 +44,8 @@ Route::middleware(["auth:api"])->group(function () {
 
     // Issue
     Route::post('case-add',[IssueController::class, 'add']);
+    Route::get('case-list',[IssueController::class, 'list']);
+    Route::get('case-info/{id}',[IssueController::class, 'info']);
 
     // Employee
     Route::post('employee-add',[EmployeeController::class, 'add']);
@@ -73,5 +76,14 @@ Route::middleware(["auth:api"])->group(function () {
     Route::get('cases-accounts-list',[IssueAccountsController::class, 'list']);
     Route::get('case-accounts-list/{id}',[IssueAccountsController::class, 'singleIssueList']);
     Route::get('agent-case-accounts-list/{id}',[IssueAccountsController::class, 'agentList']);
+
+
+    // Session
+    Route::post('session-add',[SessionController::class, 'add']);
+    Route::get('session-list/{id}',[SessionController::class, 'list']);
+    Route::get('session-info/{id}',[SessionController::class, 'info']);
+
+    // Enemy
+    Route::post('enemy-add',[EnemyController::class, 'add']);
 
 });

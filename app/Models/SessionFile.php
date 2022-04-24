@@ -5,15 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Session extends Model
+class SessionFile extends Model
 {
     use HasFactory;
     protected $guarded = [];
-
-
-    public function files()
-    {
-        return $this->hasMany(SessionFile::class, 'session_id' , 'id');
-    }
 
 }

@@ -30,4 +30,13 @@ class Issue extends Model
         return $this->hasMany(IssueAccount::class, 'issue_id' , 'id');
     }
 
+    public function files()
+    {
+        return $this->hasMany(IssueFile::class, 'issue_id' , 'id');
+    }
+
+    public function enemies()
+    {
+        return $this->hasMany(Enemy::class);
+    }
 }

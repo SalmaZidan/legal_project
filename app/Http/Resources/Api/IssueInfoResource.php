@@ -8,7 +8,7 @@ use App\Models\Court;
 use App\Models\IssueType;
 use App\Models\Issue;
 
-class IssueResource extends JsonResource
+class IssueInfoResource extends JsonResource
 {
     public function __construct($resource, $language)
     {
@@ -21,7 +21,6 @@ class IssueResource extends JsonResource
             $this->language = $resource;
         }
     }
-
     /**
      * Transform the resource into an array.
      *
@@ -49,6 +48,8 @@ class IssueResource extends JsonResource
             "case_type" => isset($issue_type)? new IssueTypeResource($issue_type, $this->language): '' ,
             "cost" => $this->cost,
             "documents" => AgentDocumentResource::collection($issue->files),
+            "enemies" => EnemyResource::collection($issue->enemies, $this->language),
+            "agents" => AgentInfoResource::collection($issue->agents, $this->language),
             "created_at" => $this->created_at,
             "updated_at" => $this->updated_at,
         ];
