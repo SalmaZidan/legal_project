@@ -50,6 +50,7 @@ class IssueInfoResource extends JsonResource
             "documents" => AgentDocumentResource::collection($issue->files),
             "enemies" => EnemyResource::collection($issue->enemies, $this->language),
             "agents" => AgentInfoResource::collection($issue->agents, $this->language),
+            "sessions" => SessionResource::collection($issue->sessions, $this->language),
             "created_at" => $this->created_at,
             "updated_at" => $this->updated_at,
         ];

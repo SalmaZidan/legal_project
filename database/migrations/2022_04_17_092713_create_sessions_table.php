@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->date('date');
             $table->text('judgment');
+            $table->text('details');
             $table->unsignedBigInteger('issue_id')->nullable();
             $table->timestamps();
         });

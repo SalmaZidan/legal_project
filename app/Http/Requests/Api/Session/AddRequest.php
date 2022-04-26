@@ -34,6 +34,7 @@ class AddRequest extends FormRequest
             "case_id" => "required|exists:issues,id",
             "documents" => "array",
             "documents.*" => "file",
+            "details"=>"required",
         ];
     }
 

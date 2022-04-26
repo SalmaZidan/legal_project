@@ -39,4 +39,9 @@ class Issue extends Model
     {
         return $this->hasMany(Enemy::class);
     }
+
+    public function sessions()
+    {
+        return $this->hasMany(Session::class);
+    }
 }

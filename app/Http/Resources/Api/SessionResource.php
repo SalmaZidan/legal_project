@@ -34,7 +34,7 @@ class SessionResource extends JsonResource
             "id" => $this->id,
             "date" => $this->date,
             "judgment" => $this->judgment,
-            // "case" => isset($issue)? new IssueResource($issue, $this->language): '',
+            "details" => $this->details,
             "documents" => AgentDocumentResource::collection($session->files),
         ];
     }

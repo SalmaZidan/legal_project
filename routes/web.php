@@ -53,5 +53,9 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function()
     Route::get('/', function () {
         return view('dashboard.home');
     });
+
+    Route::get('login', function () {
+        return view('dashboard.login');
+    })->name('dashboard.login');
 });
 

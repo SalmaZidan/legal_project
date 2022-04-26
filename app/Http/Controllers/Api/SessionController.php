@@ -21,6 +21,7 @@ class SessionController extends Controller
                 'issue_id' => $request->case_id,
                 'judgment' =>$request->judgment,
                 'date' =>$request->date,
+                'details'=> $request->details,
             ]);
             if($request->header('lang')){
                 if($request->header('lang') == 'ar'){
