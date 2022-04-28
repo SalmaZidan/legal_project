@@ -47,6 +47,7 @@ class IssueInfoResource extends JsonResource
             "agent_class" => $this->agent_class,
             "case_type" => isset($issue_type)? new IssueTypeResource($issue_type, $this->language): '' ,
             "cost" => $this->cost,
+            "details" => $this->details,
             "documents" => AgentDocumentResource::collection($issue->files),
             "enemies" => EnemyResource::collection($issue->enemies, $this->language),
             "agents" => AgentInfoResource::collection($issue->agents, $this->language),

@@ -37,6 +37,7 @@ class IssueController extends Controller
                 'agent_class' =>$request->agent_class ,
                 'issue_type_id' =>$request->case_type_id ,
                 'cost' =>$request->cost ,
+                'details' =>$request->details ,
             ]);
             $issue->agents()->attach($request->agents);
             if($request->documents){

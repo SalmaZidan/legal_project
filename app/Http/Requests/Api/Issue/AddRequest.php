@@ -41,6 +41,7 @@ class AddRequest extends FormRequest
             "agent_class" => "required|in:0,1",
             "case_type_id" => "required|exists:issue_types,id",
             "cost" => "required",
+            "details" => "required",
             "agents" => "array|required|min:1",
             "documents" => "array",
             "documents.*" => "file",

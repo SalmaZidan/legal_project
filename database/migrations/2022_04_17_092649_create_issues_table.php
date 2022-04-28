@@ -25,6 +25,7 @@ return new class extends Migration
             $table->date('date');
             $table->integer('agent_class');
             $table->unsignedBigInteger('issue_type_id')->nullable();
+            $table->text('details');
             $table->string('cost');
             $table->timestamps();
         });
