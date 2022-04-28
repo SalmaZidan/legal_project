@@ -50,6 +50,7 @@ class IssueResource extends JsonResource
             "cost" => $this->cost,
             "details" => $this->details,
             "documents" => AgentDocumentResource::collection($issue->files),
+            "agents" => AgentInfoResource::collection($issue->agents, $this->language),
             "created_at" => $this->created_at,
             "updated_at" => $this->updated_at,
         ];
